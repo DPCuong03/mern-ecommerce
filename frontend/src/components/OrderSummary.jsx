@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "../lib/axios";
+import dotenv from "dotenv";
 
-const stripePromise = loadStripe(
-  "pk_test_51RlWXsQNxfa2SQGuMk1DgFVgMgOdlbLOItlyYazczQOGqSPPETq78d0Ub9KduqFDl6kOArphn4WX0UfJOp9m3O9S00aoUGL9t9"
-);
+dotenv.config();
+
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISH_KEY);
 
 const OrderSummary = () => {
   const { total, subtotal, coupon, isCouponApplied, cart } = useCartStore();
