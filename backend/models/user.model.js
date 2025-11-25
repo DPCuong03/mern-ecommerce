@@ -19,6 +19,18 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [6, "Password must be at least 6 characters long"],
     },
+    lastLogin: {
+      type: Date,
+      default: Date.now,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: String,
+    verificationTokenExpiresAt: Date,
+    resetPasswordToken: String,
+    resetPasswordExpiresAt: Date,
     cartItems: [
       {
         quantity: {

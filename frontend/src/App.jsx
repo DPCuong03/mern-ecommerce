@@ -5,6 +5,9 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import SearchPage from "./pages/SearchPage";
 
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
@@ -21,13 +24,13 @@ import EditProduct from "./pages/EditProduct";
 function App() {
   const { user, checkAuth, checkingAuth } = useUserStore();
   const { getCartItems } = useCartStore();
+
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
   useEffect(() => {
     if (!user) return;
-
     getCartItems();
   }, [getCartItems, user]);
 
@@ -55,6 +58,14 @@ function App() {
             element={!user ? <LoginPage /> : <Navigate to="/" />}
           />
           <Route
+            path="/forgot-password"
+            element={!user ? <ForgotPasswordPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/reset-password:token"
+            element={!user ? <ResetPasswordPage /> : <Navigate to="/" />}
+          />
+          <Route
             path="/secret-dashboard"
             element={
               user?.role === "admin" ? <AdminPage /> : <Navigate to="/login" />
@@ -74,6 +85,7 @@ function App() {
             element={user ? <PurchaseCancelPage /> : <Navigate to="/login" />}
           />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/admin/products/:id/edit" element={<EditProduct />} />
         </Routes>
       </div>

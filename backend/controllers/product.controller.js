@@ -220,3 +220,19 @@ export const updateProduct = async (req, res) => {
     res.status(500).json({ error: "Lỗi server khi cập nhật sản phẩm" });
   }
 };
+
+export const searchProducts = async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q) return res.json([]);
+
+    const products = await Product.find({
+      name: { $regex: q, $options: "i" }, // case-insensitive search
+    });
+
+    res.json(products);
+  } catch (err) {
+    console.error("Search error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};

@@ -9,6 +9,7 @@ import {
   toggleFeaturedProduct,
   getProductById,
   updateProduct,
+  searchProducts,
 } from "../controllers/product.controller.js";
 import { adminRoute, protectRoute } from "../middleware/auth.middleware.js";
 
@@ -19,9 +20,11 @@ router.get("/featured", getFeaturedProducts);
 router.get("/category/:category", getProductsByCategory);
 router.get("/recommendations", getRecommendedProducts);
 router.post("/", protectRoute, adminRoute, createProduct);
+router.get("/search", searchProducts);
 router.patch("/:id", protectRoute, adminRoute, toggleFeaturedProduct);
 router.delete("/:id", protectRoute, adminRoute, deleteProduct);
 router.get("/:id", getProductById);
 router.put("/:id", updateProduct);
+router.get("/search", searchProducts);
 
 export default router;
